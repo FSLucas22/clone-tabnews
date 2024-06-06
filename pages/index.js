@@ -16,16 +16,47 @@ function Home() {
             "é isso"
         ),
         createQuestion(
-            "Seu nome é: ____ (Sem sobrenome, por favor. cof cof)",
-            isOneOf("carol", "carolina"),
-            "é isso"
+            "Está pronta?", 
+            (answer) => {
+                const a = answer.toLowerCase();
+                return (a.includes("ok") || a.includes("ouk")) && a.includes("do");
+            },
+            "muito óbvio..."
         ),
         createQuestion(
-            "Te amo tanto que uma _________ não "
+            "Eu sei que você é _____________, mas pra facilitar, "
+            + " a resposta anterior aceitaria qualquer coisa que tivesse \"ok\" ou \"ouk\" e \"do\" nela :p",
+            isEqual("internaxional"),
+            "com x mesmo!"
+        ),
+        createQuestion(
+            "A escolhida deve ter bom gosto. Então me diga: Qual o melhor anime do mundo?",
+            isEqual("one piece"),
+            "não é Sailor Moon u.u"
+        ),
+        createQuestion(
+            "Seu nome é? (Sem sobrenome, por favor. cof cof)",
+            isOneOf("carol", "carolina"),
+            "é claro"
+        ),
+        createQuestion(
+            "Seu sobrenome é? (Só o melhor deles. cof cof",
+            isEqual("tavares"),
+            "com certeza"
+        ),
+        createQuestion(
+            "Ok, e se eu fosse me declarar como você completaria essa frase: "
+            + "\"Te amo tanto que uma _________ não "
             + "seria presente o bastante. Pode ficar comigo "
-            + "por inteiro! rsrs",
+            + "por inteiro! rsrs\"",
             isEqual("orelha"),
             "credo"
+        ),
+        createQuestion(
+            "Parece que você é mesmo a escolhida..." +
+            "Mas só se me der um ___________ rs",
+            isEqual("beijinho"),
+            "Tem que fazer na vida real também rs"
         )
     ];
 
@@ -33,8 +64,6 @@ function Home() {
 
     if (questionNumber == questions.length) {
         return <div>
-            <p>Parece que você é mesmo a escolhida... 
-                mas se é mesmo me dá um beijinho rs</p>
             <p>Te amo meu bb! &#128536;&#128536;&#128536;</p>
          </div>
     }

@@ -24,7 +24,7 @@ function QuizzLine(props) {
     const [buttonConfirmText, setButtonConfirmText] = useState(confirmText || "acho que acertei!");
 
     return <div>
-        <p>{ question }</p>
+        <p>{question}</p>
         <input
             type="text"
             name="nome"
