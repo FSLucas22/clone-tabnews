@@ -1,56 +1,49 @@
 import { useState } from "react";
+import { createQuizzLine } from "../components/QuizzLine";
 
-const isEqual = (response) => (answer) => answer.toLowerCase() === response
-const isOneOf = (responses) => (answer) => responses.includes(answer.toLowerCase())
+const isEqual = (response) => (answer) => answer.toLowerCase() === response;
+const isOneOf = (responses) => (answer) => responses.includes(answer.toLowerCase());
 
-function Home() {
-    return <div>
-    <QuizzLine
-        question = {"Hummmm... dizem que você é a _________. Será mesmo? Vamos testar!"}
-        verifyAnswer = {isEqual("escolhida")}
-        confirmText = {"é isso"}
-    ></QuizzLine>
-    <QuizzLine
-        question = {"Seu nome é: ____ (Sem sobrenome, por favor. cof cof)"}
-        verifyAnswer = {isOneOf(["carol", "carolina"])}
-        confirmText = {"é claro"}
-    ></QuizzLine>
-    <QuizzLine 
-        question = {"Te amo tanto que uma _________ não "
-                + "seria presente o bastante. Pode ficar comigo "
-                + "por inteiro! rsrs"}
-        verifyAnswer = {isEqual("orelha")}
-        confirmText = {"credo"}
-    ></QuizzLine>
-    </div>
+function createQuestion(questionText, verifyAnswer, confirmText) {
+    return {questionText, verifyAnswer, confirmText}
 }
 
-function QuizzLine(props) {
-    const {question, placeholder, verifyAnswer, confirmText} = props
-    
-    const [answer, setAnswer] = useState("")
+function Home() {
+    const questions = [
+        createQuestion(
+            "Hummmm... dizem que você é a _________. Será mesmo? Vamos testar!",
+            isEqual("escolhida"),
+            "é isso"
+        ),
+        createQuestion(
+            "Seu nome é: ____ (Sem sobrenome, por favor. cof cof)",
+            isOneOf("carol", "carolina"),
+            "é isso"
+        ),
+        createQuestion(
+            "Te amo tanto que uma _________ não "
+            + "seria presente o bastante. Pode ficar comigo "
+            + "por inteiro! rsrs",
+            isEqual("orelha"),
+            "credo"
+        )
+    ];
 
-    const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+    const [questionNumber, setQuestionNumber] = useState(0);
 
-    if (isAnswerCorrect) {
-        return <p>Acertoooou!</p>
+    if (questionNumber == questions.length) {
+        return <div>
+            <p>Parece que você é mesmo a escolhida... 
+                mas se é mesmo me dá um beijinho rs"</p>
+            <p>Te amo meu bb! &#128536;&#128536;&#128536;</p>
+         </div>
     }
 
+    const onCorrect = () => setQuestionNumber(questionNumber+1);
+    const CurrentQuestion = createQuizzLine(questions[questionNumber], onCorrect);
+
     return <div>
-        <p>{ question }</p>
-        <input
-            type="text"
-            name="nome"
-            autoComplete="off"
-            placeholder={placeholder || "completa aí rs"}
-            className="col-12"
-            value={answer}
-            onChange={(evento) => setAnswer(evento.target.value)}
-          />
-        
-        <button 
-            onClick={() => setIsAnswerCorrect(verifyAnswer(answer))}>
-        {confirmText || "acho que acertei!"}</button>
+        <CurrentQuestion></CurrentQuestion>
     </div>
 }
 
