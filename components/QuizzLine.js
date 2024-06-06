@@ -23,29 +23,30 @@ function QuizzLine(props) {
 
     const [buttonConfirmText, setButtonConfirmText] = useState(confirmText || "acho que acertei!");
 
-    return <div>
-        <p>{question}</p>
-        <input
-            type="text"
-            name="nome"
-            autoComplete="off"
-            placeholder={placeholder || "completa aí rs"}
-            className="col-12"
-            value={answer}
-            onChange={(evento) => setAnswer(evento.target.value)}
-          />
-        
-        <button 
-            onClick={() => {
-                if (verifyAnswer(answer)) {
-                    correctSound.play();
-                    onCorrect()
-                } else {
-                    incorrectSound.play();
-                    setButtonConfirmText("tenta dnv :p");
-                }
-            }}>
-        {buttonConfirmText}</button>
+    return <div className="quizz-container">
+        <p className="quizz-question">{question}</p>
+        <div className="quizz-answer">
+            <input type="text"
+                className="quizz-answer-text"
+                name="nome"
+                autoComplete="off"
+                placeholder={placeholder || "completa aí rs"}
+                value={answer}
+                onChange={(evento) => setAnswer(evento.target.value)}
+            />
+            
+            <button className="quizz-answer-btn"
+                onClick={() => {
+                    if (verifyAnswer(answer)) {
+                        correctSound.play();
+                        onCorrect()
+                    } else {
+                        incorrectSound.play();
+                        setButtonConfirmText("tenta dnv :p");
+                    }
+                }}>
+            {buttonConfirmText}</button>
+        </div>
     </div>
 }
 
