@@ -34,7 +34,7 @@ function Home() {
     if (questionNumber == questions.length) {
         return <div>
             <p>Parece que você é mesmo a escolhida... 
-                mas se é mesmo me dá um beijinho rs"</p>
+                mas se é mesmo me dá um beijinho rs</p>
             <p>Te amo meu bb! &#128536;&#128536;&#128536;</p>
          </div>
     }

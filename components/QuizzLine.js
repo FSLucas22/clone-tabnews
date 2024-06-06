@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import correct from "../assets/sound-effects/correct.mp3";
+import incorrect from "../assets/sound-effects/incorrect.mp3";
 
 function QuizzLine(props) {
     const {
@@ -9,14 +11,17 @@ function QuizzLine(props) {
         onCorrect
     } = props
     
+    const [correctSound, setCorrectSound] = useState(null);
+    const [incorrectSound, setIncorrectSound] = useState(null);
+
+    useEffect(() => {
+        setCorrectSound(new Audio(correct));
+        setIncorrectSound(new Audio(incorrect));
+    }, []);
+
     const [answer, setAnswer] = useState("")
 
-    const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
-
-    if (isAnswerCorrect) {
-        onCorrect();
-        return <p>Acertou!!!!!</p>
-    }
+    const [buttonConfirmText, setButtonConfirmText] = useState(confirmText || "acho que acertei!");
 
     return <div>
         <p>{ question }</p>
@@ -31,8 +36,16 @@ function QuizzLine(props) {
           />
         
         <button 
-            onClick={() => setIsAnswerCorrect(verifyAnswer(answer))}>
-        {confirmText || "acho que acertei!"}</button>
+            onClick={() => {
+                if (verifyAnswer(answer)) {
+                    correctSound.play();
+                    onCorrect()
+                } else {
+                    incorrectSound.play();
+                    setButtonConfirmText("tenta dnv :p");
+                }
+            }}>
+        {buttonConfirmText}</button>
     </div>
 }
 
