@@ -55,7 +55,7 @@ function Home() {
             "é claro"
         ),
         createQuestion(
-            "Seu sobrenome é? (Só o melhor deles. cof cof",
+            "Seu sobrenome é? (Só o melhor deles. cof cof)",
             QuizzHint6,
             isEqual("tavares"),
             "com certeza"
