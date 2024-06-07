@@ -1,4 +1,6 @@
-import Home from "./_app";
+function Home() {
+    return <p>Teste</p>
+}
 
 
 export default Home;
