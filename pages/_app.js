@@ -61,7 +61,7 @@ function Home() {
             "com certeza"
         ),
         createQuestion(
-            "Ok, e se eu fosse me declarar como você completaria essa frase: "
+            "Ok, e se eu fosse me declarar, como eu completaria essa frase: "
             + "\"Te amo tanto que uma _________ não "
             + "seria presente o bastante. Pode ficar comigo "
             + "por inteiro! rsrs\"",
