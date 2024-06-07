@@ -51,7 +51,7 @@ function Home() {
         createQuestion(
             "Seu nome é? (Sem sobrenome, por favor. cof cof)",
             QuizzHint5,
-            isOneOf("carol", "carolina"),
+            isOneOf(["carol", "carolina"]),
             "é claro"
         ),
         createQuestion(
@@ -73,7 +73,7 @@ function Home() {
             "Parece que você é mesmo a escolhida..." +
             "Mas só se me der um ___________, rs",
             QuizzHint8,
-            isOneOf("beijinho", "beijo", "beijão"),
+            isOneOf(["beijinho", "beijo", "beijão"]),
             "Tem que fazer na vida real também rs"
         )
     ];
