@@ -5,12 +5,13 @@ import incorrect from "../assets/sound-effects/incorrect.mp3";
 function QuizzLine(props) {
     const {
         question, 
+        questionImg,
         placeholder, 
         verifyAnswer, 
         confirmText, 
-        onCorrect
+        onCorrect,
     } = props
-    
+        
     const [correctSound, setCorrectSound] = useState(null);
     const [incorrectSound, setIncorrectSound] = useState(null);
 
@@ -24,8 +25,13 @@ function QuizzLine(props) {
     const [buttonConfirmText, setButtonConfirmText] = useState(confirmText || "acho que acertei!");
 
     return <div className="quizz-container">
-        <p className="quizz-question">{question}</p>
-        <div className="quizz-answer">
+        <div className="quizz-question-container">
+            <p className="quizz-question">{question}</p>
+            <img 
+                className="quizz-question-img"
+                src={questionImg}></img>
+        </div>
+        <div className="quizz-answer-container">
             <input type="text"
                 className="quizz-answer-text"
                 name="nome"
@@ -54,6 +60,7 @@ function QuizzLine(props) {
 function createQuizzLine(question, onCorrect) {
     return () => <QuizzLine
         question = {question.questionText}
+        questionImg = {question.questionImg}
         verifyAnswer = {question.verifyAnswer}
         confirmText = {question.confirmText}
         onCorrect = {onCorrect}
