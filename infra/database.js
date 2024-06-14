@@ -1,4 +1,3 @@
-import { CLIENT_PUBLIC_FILES_PATH } from "next/dist/shared/lib/constants";
 import { Client } from "pg";
 
 function clientFactory() {
@@ -8,6 +7,7 @@ function clientFactory() {
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
+    ssl: process.env.NODE_ENV !== "development",
   });
 
   console.log("Credenciais do Postgres:", {
@@ -16,6 +16,7 @@ function clientFactory() {
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
+    ssl: process.env.NODE_ENV !== "development",
   });
 
   return client;
