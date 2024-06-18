@@ -1,23 +1,24 @@
 import { Client } from "pg";
 
-function clientFactory() {
+async function clientFactory() {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    ssl: process.env.NODE_ENV !== "development",
+    ssl: process.env.NODE_ENV === "production",
   });
 
+  await client.connect();
   return client;
 }
 
 async function query(queryObject) {
-  const client = clientFactory();
+  let client;
 
   try {
-    await client.connect();
+    client = await clientFactory();
     const result = await client.query(queryObject);
     return result;
   } catch (error) {
@@ -51,8 +52,9 @@ async function getActiveConnections() {
 }
 
 export default {
-  query: query,
+  query,
   getVersion,
   getMaxConnections,
   getActiveConnections,
+  clientFactory,
 };
