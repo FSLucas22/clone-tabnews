@@ -14,19 +14,22 @@ async function clientFactory() {
   return client;
 }
 
-async function query(queryObject) {
-  let client;
-
+async function autoEnd(dbClient, asyncAction) {
   try {
-    client = await clientFactory();
-    const result = await client.query(queryObject);
-    return result;
+    return await asyncAction(dbClient);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error;
   } finally {
-    await client.end();
+    dbClient.end();
   }
+}
+
+async function query(queryObject) {
+  return autoEnd(
+    await clientFactory(),
+    async (client) => await client.query(queryObject),
+  );
 }
 
 async function getVersion() {
@@ -57,4 +60,5 @@ export default {
   getMaxConnections,
   getActiveConnections,
   clientFactory,
+  autoEnd,
 };
