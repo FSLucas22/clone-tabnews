@@ -56,5 +56,5 @@ export default {
   getVersion,
   getMaxConnections,
   getActiveConnections,
-  clientFactory: getNewClient,
+  getNewClient,
 };
