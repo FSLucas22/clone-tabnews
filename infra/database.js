@@ -1,6 +1,6 @@
 import { Client } from "pg";
 
-async function clientFactory() {
+async function getNewClient() {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
@@ -18,7 +18,7 @@ async function query(queryObject) {
   let client;
 
   try {
-    client = await clientFactory();
+    client = await getNewClient();
     const result = await client.query(queryObject);
     return result;
   } catch (error) {
@@ -56,5 +56,5 @@ export default {
   getVersion,
   getMaxConnections,
   getActiveConnections,
-  clientFactory,
+  clientFactory: getNewClient,
 };
