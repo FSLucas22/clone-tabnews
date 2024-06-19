@@ -8,7 +8,7 @@ export default async function migrations(request, response) {
   }
 
   return await database.autoEnd(
-    await database.clientFactory(),
+    await database.getNewClient(),
     async (dbClient) => {
       const defaultMigrationOptions = {
         dbClient: dbClient,
