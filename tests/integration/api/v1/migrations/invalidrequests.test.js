@@ -16,6 +16,9 @@ test("/api/v1/migrations should return 403 and close connections when request me
   });
   expect(response.status).toBe(405);
 
+  const responseBody = await response.json();
+  expect(responseBody).toEqual({ error: 'Method "DELETE" not allowed!' });
+
   const statusResponse = await fetch(API_URL + "/status");
   expect(statusResponse.status).toBe(200);
   const responseStatusBody = await statusResponse.json();
