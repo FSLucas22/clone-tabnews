@@ -1,6 +1,11 @@
 import database from "infra/database.js";
 
-beforeAll(killConnections);
+import orchestrator from "tests/orchestrator";
+
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+  await killConnections();
+});
 
 async function killConnections() {
   const dbName = process.env.POSTGRES_DB;
