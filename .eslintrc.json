@@ -22,7 +22,6 @@
     "no-useless-return": ["error"],
     "no-void": ["error"],
     "yoda": ["error"],
-    "import/no-anonymous-default-export": 0,
     "complexity": ["error", 10]
   },
   "overrides": [

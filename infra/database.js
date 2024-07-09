@@ -51,10 +51,12 @@ async function getActiveConnections() {
   return result;
 }
 
-export default {
+const database = {
   query,
   getVersion,
   getMaxConnections,
   getActiveConnections,
   getNewClient,
 };
+
+export default database;
