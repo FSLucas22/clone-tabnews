@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/recommended",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "prefer-const": ["error"],
+    "no-const-assign": ["error"],
+    "no-var": ["error"],
+    "no-duplicate-imports": ["error"],
+    "no-unreachable-loop": ["error"],
+    "block-scoped-var": ["error"],
+    "max-depth": ["error", 3],
+    "no-else-return": ["error"],
+    "no-invalid-this": ["error"],
+    "no-labels": ["error"],
+    "no-lonely-if": ["error"],
+    "no-loop-func": ["error"],
+    "no-return-assign": ["error"],
+    "no-sequences": ["error"],
+    "no-undef-init": ["error"],
+    "no-undefined": ["error"],
+    "no-unneeded-ternary": ["error"],
+    "no-unused-expressions": ["error"],
+    "no-useless-return": ["error"],
+    "no-void": ["error"],
+    "yoda": ["error"],
+    "complexity": ["error", 10]
+  }
+}
