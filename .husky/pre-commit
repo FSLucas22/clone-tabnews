@@ -1,0 +1,6 @@
+# Define the Docker image you want to check
+IMAGE_NAME=zricethezav/gitleaks
+PROJECT_PATH=/project
+
+docker pull zricethezav/gitleaks:latest
+docker run -v $(pwd):$PROJECT_PATH zricethezav/gitleaks:latest protect --staged --source="$PROJECT_PATH"
