@@ -2,7 +2,7 @@ import { createRouter } from "next-connect";
 import migrationRunner from "node-pg-migrate";
 import { resolve } from "node:path";
 import database from "infra/database";
-import { InternalServerError } from "infra/errors";
+import { InternalServerError, MethodNotAllowedError } from "infra/errors";
 
 const router = createRouter();
 router.get(getHandler).post(postHandler);
@@ -13,9 +13,8 @@ export default router.handler({
 });
 
 function onNoMatchHandler(request, response) {
-  return response
-    .status(405)
-    .json({ error: `Method "${request.method}" not allowed!` });
+  const publicErrorObject = new MethodNotAllowedError();
+  response.status(publicErrorObject.statusCode).json(publicErrorObject);
 }
 
 function onErrorHandler(error, request, response) {
