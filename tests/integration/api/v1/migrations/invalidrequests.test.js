@@ -15,19 +15,31 @@ async function killConnections() {
 }
 
 const API_URL = "http://localhost:3000/api/v1";
-test("/api/v1/migrations should return 403 and close connections when request method is invalid", async () => {
-  const response = await fetch(API_URL + "/migrations", {
-    method: "DELETE",
+
+describe("DELETE /api/v1/migrations", () => {
+  describe("Anonymous user", () => {
+    test("deleting pending migrations", async () => {
+      const response = await fetch(API_URL + "/migrations", {
+        method: "DELETE",
+      });
+      expect(response.status).toBe(405);
+
+      const responseBody = await response.json();
+
+      expect(responseBody).toEqual({
+        name: "MethodNotAllowedError",
+        message: "Método não permitido para este endpoint.",
+        action:
+          "Verifique se o método HTTP enviado é válido para este endpoint",
+        status_code: 405,
+      });
+
+      const statusResponse = await fetch(API_URL + "/status");
+      expect(statusResponse.status).toBe(200);
+      const responseStatusBody = await statusResponse.json();
+      expect(
+        responseStatusBody.dependencies.database.active_connections,
+      ).toEqual(1);
+    });
   });
-  expect(response.status).toBe(405);
-
-  const responseBody = await response.json();
-  expect(responseBody).toEqual({ error: 'Method "DELETE" not allowed!' });
-
-  const statusResponse = await fetch(API_URL + "/status");
-  expect(statusResponse.status).toBe(200);
-  const responseStatusBody = await statusResponse.json();
-  expect(responseStatusBody.dependencies.database.active_connections).toEqual(
-    1,
-  );
 });
