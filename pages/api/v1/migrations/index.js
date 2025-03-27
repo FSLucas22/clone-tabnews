@@ -1,6 +1,7 @@
 import migrationRunner from "node-pg-migrate";
 import { resolve } from "node:path";
 import database from "infra/database";
+import { InternalServerError } from "infra/errors";
 
 export default async function migrations(request, response) {
   if (!["GET", "POST"].includes(request.method)) {
@@ -38,7 +39,11 @@ export default async function migrations(request, response) {
     }
   } catch (error) {
     console.log(error);
-    throw error;
+    const publicErrorObject = new InternalServerError({
+      cause: error,
+    });
+
+    response.status(publicErrorObject.statusCode).json(publicErrorObject);
   } finally {
     dbClient?.end();
   }
